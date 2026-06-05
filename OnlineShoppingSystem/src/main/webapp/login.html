@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Form</title>
+<style>
+/* Reset and Base Styles */
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+	background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	position: relative;
+	/* Allows absolute positioning relative to the viewport */
+}
+
+/* Login Card Container */
+.login-container {
+	background-color: #ffffff;
+	padding: 2.5rem;
+	border-radius: 8px;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+	width: 100%;
+	max-width: 400px;
+}
+
+h2 {
+	text-align: center;
+	margin-bottom: 1.5rem;
+	color: #333333;
+	font-weight: 600;
+}
+
+/* Form Layout */
+form {
+	display: flex;
+	flex-direction: column;
+	gap: 1.2rem;
+}
+
+.input-group {
+	display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
+	color: #555555;
+	font-size: 0.9rem;
+}
+
+/* Inputs and Button */
+input[type="text"], input[type="password"] {
+	padding: 0.75rem;
+	border: 1px solid #cccccc;
+	border-radius: 4px;
+	font-size: 1rem;
+	transition: border-color 0.2s ease;
+	outline: none;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+	border-color: #4a90e2;
+}
+
+button {
+	background-color: #4a90e2;
+	color: white;
+	border: none;
+	padding: 0.75rem;
+	border-radius: 4px;
+	font-size: 1rem;
+	font-weight: bold;
+	cursor: pointer;
+	transition: background-color 0.2s ease;
+	margin-top: 0.5rem;
+}
+
+button:hover {
+	background-color: #357abd;
+}
+
+/* New CSS for the Top Registration Bar */
+.register-button-container {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	display: flex;
+	justify-content: flex-end; /* Aligns button to the top-right */
+	padding: 20px 30px;
+}
+
+/* Stylized Register Button */
+.register-button-container button {
+	background-color: transparent;
+	color: #4a90e2;
+	border: 2px solid #4a90e2;
+	padding: 0.5rem 1.5rem;
+	font-size: 0.95rem;
+	margin-top: 0;
+	transition: all 0.3s ease;
+}
+
+.register-button-container button:hover {
+	background-color: #4a90e2;
+	color: #ffffff;
+}
+</style>
+</head>
+<body>
+
+	<div class="register-button-container">
+		<a href="register.html"><button>Register</button></a>
+	</div>
+
+	<div class="login-container">
+		<h2>Login</h2>
+		<form action="authenticate" method="post">
+
+			<div class="input-group">
+				<label for="username">Username</label> <input type="text"
+					id="username" name="username" value="cdac" required>
+			</div>
+
+			<div class="input-group">
+				<label for="password">Password</label> <input type="password"
+					id="password" name="password" value="cdac" required>
+			</div>
+
+			<button type="submit">Login</button>
+		</form>
+	</div>
+</body>
+</html>

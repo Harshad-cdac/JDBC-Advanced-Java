@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registration Page</title>
+
+<style>
+body {
+	background-color: #f4f7f6;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	padding: 20px;
+}
+
+/* Card container for the form */
+.registration-container {
+	background-color: #ffffff;
+	padding: 30px 40px;
+	border-radius: 8px;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+	width: 100%;
+	max-width: 450px;
+}
+
+.registration-container h2 {
+	color: #333333;
+	margin-bottom: 8px;
+	text-align: center;
+}
+
+.registration-container p {
+	color: #666666;
+	font-size: 14px;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+hr {
+	border: 0;
+	height: 1px;
+	background: #e0e0e0;
+	margin-bottom: 20px;
+}
+
+/* Individual form fields layout */
+.input-group {
+	margin-bottom: 20px;
+	display: flex;
+	flex-direction: column;
+}
+
+.input-group label {
+	font-size: 14px;
+	color: #555555;
+	margin-bottom: 6px;
+	font-weight: 600;
+}
+
+.input-group input {
+	padding: 10px 14px;
+	font-size: 15px;
+	border: 1px solid #cccccc;
+	border-radius: 4px;
+	outline: none;
+	transition: border-color 0.2s ease-in-out;
+}
+
+/* Highlight input field on focus */
+.input-group input:focus {
+	border-color: #007bff;
+}
+
+/* Submit button styling */
+.register-btn {
+	width: 100%;
+	padding: 12px;
+	background-color: #007bff;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	font-size: 16px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: background-color 0.2s ease-in-out;
+	margin-top: 10px;
+}
+
+/* Button hover effect */
+.register-btn:hover {
+	background-color: #0056b3;
+}
+</style>
+</head>
+<body>
+
+	<div class="registration-container">
+		<h2>Create an Account</h2>
+		<p>Please fill in this form to register.</p>
+		<hr>
+
+		<form action="register" method="POST">
+			<div class="input-group">
+				<label for="name">Full Name</label> <input type="text" id="name"
+					name="name" placeholder="Enter your full name" required>
+			</div>
+
+			<div class="input-group">
+				<label for="username">Username</label> <input type="text"
+					id="username" name="username" placeholder="Choose a username"
+					required>
+			</div>
+
+			<div class="input-group">
+				<label for="email">Email Address</label> <input type="email"
+					id="email" name="email" placeholder="Enter your email" required>
+			</div>
+
+			<div class="input-group">
+				<label for="password">Password</label> <input type="password"
+					id="password" name="password" placeholder="Create a password"
+					required>
+			</div>
+
+			<div class="input-group">
+				<label for="city">City</label> <input type="text" id="city"
+					name="city" placeholder="Enter your city" required>
+			</div>
+
+			<button type="submit" class="register-btn">Register</button>
+		</form>
+	</div>
+
+</body>
+</html>
+
+

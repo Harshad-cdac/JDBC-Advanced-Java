@@ -34,7 +34,7 @@ public class Category extends HttpServlet {
 				while(rs.next()) {
 					out.println("<tr>");
 					out.println("<td>"+rs.getInt(1)+"</td>");
-					out.println("<td>"+rs.getString(2)+"</td>");
+					out.println("<td><a href='products?categoryId="+rs.getInt(1)+"'/>"+rs.getString(2)+"</a></td>");
 					out.println("<td>"+rs.getString(3)+"</td>");
 					out.println("<td>"+rs.getString(4)+"</td>");
 					out.println("</tr>");
