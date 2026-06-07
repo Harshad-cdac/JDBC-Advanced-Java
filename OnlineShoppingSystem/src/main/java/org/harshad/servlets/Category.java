@@ -7,6 +7,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Iterator;
+
+import org.harshad.dao.CategoryDao;
+import org.harshad.dao.impl.CategoryDaoImplementation;
+import org.harshad.exceptions.CategoryException;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -19,32 +25,32 @@ public class Category extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			PrintWriter out=response.getWriter();
-			try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cdac_170", "root", "cdac");
-					PreparedStatement psGetAllCategories = con.prepareStatement("Select * from category");
-					ResultSet rs = psGetAllCategories.executeQuery()) {
+		try (PrintWriter out = response.getWriter()) {
+			CategoryDao categoryDao =new CategoryDaoImplementation();
+			try {
+				Iterator<org.harshad.entity.Category> categoryList=categoryDao.listAllCategories();
 				out.println("<html> <body> <table> <tr> ");
-				out.println("<th>"+"CategoryId"+"</th>");
-				out.println("<th>"+"CategoryName"+"</th>");
-				out.println("<th>"+"CategoryDescription"+"</th>");
-				out.println("<th>"+"CategoryImageUrl"+"</th>");
+				out.println("<th>" + "CategoryId" + "</th>");
+				out.println("<th>" + "CategoryName" + "</th>");
+				out.println("<th>" + "CategoryDescription" + "</th>");
+				out.println("<th>" + "CategoryImageUrl" + "</th>");
 				out.println("</tr>");
-				while(rs.next()) {
+				while (categoryList.hasNext()) {
+						org.harshad.entity.Category category=categoryList.next();
 					out.println("<tr>");
-					out.println("<td>"+rs.getInt(1)+"</td>");
-					out.println("<td><a href='products?categoryId="+rs.getInt(1)+"'/>"+rs.getString(2)+"</a></td>");
-					out.println("<td>"+rs.getString(3)+"</td>");
-					out.println("<td>"+rs.getString(4)+"</td>");
+					out.println("<td>" + category.getCategoryId() + "</td>");
+					out.println("<td><a href='products?categoryId=" + category.getCategoryId()+ "'/>" + category.getCategoryName()+ "</a></td>");
+					out.println("<td>" + category.getCategoryName() + "</td>");
+					out.println("<td>" + category.getCategoryDescription() + "</td>");
 					out.println("</tr>");
 				}
 				out.println("</table> </body></html>");
+			} catch (CategoryException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-		}
-
+		} 
 	}
 
 }

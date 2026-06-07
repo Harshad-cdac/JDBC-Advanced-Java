@@ -2,11 +2,12 @@ package org.harshad.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.Iterator;
+
+import org.harshad.dao.ProductDao;
+import org.harshad.dao.impl.ProductDaoImplementation;
+import org.harshad.entity.Product;
+import org.harshad.exceptions.ProductNotFoundException;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -21,29 +22,24 @@ public class Products extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			PrintWriter out = response.getWriter();
-			try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cdac_170", "root", "cdac")) {
-				String categoryId = request.getParameter("categoryId");
-				try (PreparedStatement pstmt = con.prepareStatement("select * from products where categoryId=?")) {
-					pstmt.setString(1, categoryId);
-					try (ResultSet rs = pstmt.executeQuery()) {
-						out.println("<html><body><table><tr>");
-						out.println("<th>Product id</th>");
-						out.println("<th>ProductName</th>");
-						out.println("<th>Product Price</th>");
-						while (rs.next()) {
-							out.println("<tr> <td>" + rs.getInt(1) + "</td>");
-							out.println("<td>" + rs.getString(3) + "</td>");
-							out.println("<td>" + rs.getInt(4) + "</td></tr>");
-						}
-						out.println("</tr></table></body></html>");
-					}
+			String categoryId = request.getParameter("categoryId");
+			ProductDao productDao = new ProductDaoImplementation();
+			Iterator<Product> allProducts = productDao.getProductsByCategoryId(categoryId);
+			try (PrintWriter out = response.getWriter()) {
+				out.println("<html><body><table><tr>");
+				out.println("<th>Product id</th>");
+				out.println("<th>ProductName</th>");
+				out.println("<th>Product Price</th>");
+				while (allProducts.hasNext()) {
+					Product product = allProducts.next();
+					out.println("<tr> <td>" + product.getProductId() + "</td>");
+					out.println("<td>" + product.getProductName() + "</td>");
+					out.println("<td>" + product.getPrice() + "</td></tr>");
 				}
+				out.println("</tr></table></body></html>");
 			}
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (ProductNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
-
 }

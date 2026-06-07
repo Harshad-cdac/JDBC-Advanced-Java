@@ -26,7 +26,7 @@ public class Register extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cdac_170", "root", "cdac");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cdac_170", "root", "root");
 			psInsertUser = con
 					.prepareStatement("Insert into users (username,password,name,email,city) values(?,?,?,?,?)");
 		} catch (ClassNotFoundException | SQLException e) {
