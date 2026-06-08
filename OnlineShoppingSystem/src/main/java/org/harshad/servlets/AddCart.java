@@ -1,7 +1,6 @@
 package org.harshad.servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import org.harshad.dao.Cart;
 import org.harshad.dao.impl.ShoppingCart;
@@ -14,9 +13,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-/**
- * Servlet implementation class AddCart
- */
 @WebServlet("/addcart")
 public class AddCart extends HttpServlet {
 	private static final long serialVersionUID = 1L;
