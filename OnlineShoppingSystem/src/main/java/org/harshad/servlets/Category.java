@@ -18,6 +18,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/category")
 public class Category extends HttpServlet {
@@ -26,6 +27,11 @@ public class Category extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try (PrintWriter out = response.getWriter()) {
+			HttpSession session=request.getSession(false);
+			if(session==null) {
+				response.sendRedirect("login.html");
+				return;
+			}
 			CategoryDao categoryDao =new CategoryDaoImplementation();
 			try {
 				Iterator<org.harshad.entity.Category> categoryList=categoryDao.listAllCategories();

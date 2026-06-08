@@ -14,6 +14,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/products")
 public class Products extends HttpServlet {
@@ -22,6 +23,11 @@ public class Products extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
+			HttpSession session = request.getSession(false);
+			if (session == null) {
+				response.sendRedirect("login.html");
+				return;
+			}
 			String categoryId = request.getParameter("categoryId");
 			ProductDao productDao = new ProductDaoImplementation();
 			Iterator<Product> allProducts = productDao.getProductsByCategoryId(categoryId);
@@ -35,6 +41,9 @@ public class Products extends HttpServlet {
 					out.println("<tr> <td>" + product.getProductId() + "</td>");
 					out.println("<td>" + product.getProductName() + "</td>");
 					out.println("<td>" + product.getPrice() + "</td></tr>");
+					out.println(
+							"<td> <a href='addcart?categoryId=" + categoryId + "&productId=" + product.getProductId()
+									+ "&productName=" + product.getProductName() + "&price="+product.getPrice()+"'> Add to cart" + "</a></td>");
 				}
 				out.println("</tr></table></body></html>");
 			}

@@ -13,6 +13,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/authenticate")
 public class Authenticate extends HttpServlet {
@@ -36,6 +37,8 @@ public class Authenticate extends HttpServlet {
 			user.setUsername(username);
 			user.setPassword(password);
 			if(userdao.isAuthenticated(user)) {
+				HttpSession session=request.getSession();
+				session.setAttribute("username", user.getUsername());
 				response.sendRedirect("category");
 			}else {
 				out.println("Invalid userName or password");

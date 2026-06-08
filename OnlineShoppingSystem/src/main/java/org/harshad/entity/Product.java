@@ -10,6 +10,16 @@ public class Product {
 		
 	}
 
+	
+	public Product(int productId, String productName, int categoryId, float price) {
+		super();
+		this.productId = productId;
+		this.productName = productName;
+		this.categoryId = categoryId;
+		this.price = price;
+	}
+
+
 	public int getProductId() {
 		return productId;
 	}
